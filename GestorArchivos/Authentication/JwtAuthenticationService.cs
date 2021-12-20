@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using GestorArchivos.Context;
+using GestorArchivos.Models;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GestorArchivos.Authentication
@@ -15,12 +18,26 @@ namespace GestorArchivos.Authentication
         {
             _key = key;
         }
-        public string Authenticate(string username, string password)
+        public ResponseAuth Authenticate(string username, string password, AppDbContext context)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || username != "demo" || password != "123456")
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 return null;
             }
+
+            var usuario = context.usuario.FirstOrDefault(usr => usr.usuario == username && usr.contrasenia == password && usr.vigente == "S") ;
+
+            if (usuario == null)
+                return null;
+
+
+            ResponseAuth respuesta = new ResponseAuth();
+
+            respuesta.correo = usuario.correo;
+            respuesta.usuario = usuario.usuario;
+            respuesta.nombre = usuario.nombre;
+            respuesta.idUsuario = usuario.idUsuario;
+
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKEY2021."));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -43,7 +60,9 @@ namespace GestorArchivos.Authentication
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
             //var token = tokenHandler.CreateToken(tokeOptions);
 
-            return tokenString;
+            respuesta.token = tokenString;
+
+            return respuesta;
         }
     }
 }

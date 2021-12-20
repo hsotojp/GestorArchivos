@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GestorArchivos.Context;
+using GestorArchivos.Models;
 
 namespace GestorArchivos.Authentication
 {
     public interface IJwtAuthenticationService
     {
-        string Authenticate(string username, string password);
+        ResponseAuth Authenticate(string username, string password, AppDbContext context);
     }
 }

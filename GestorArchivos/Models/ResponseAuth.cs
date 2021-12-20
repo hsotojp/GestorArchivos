@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace GestorArchivos.Models
 {
-    public class Usuario
+    public class ResponseAuth
     {
-        [Key]
         public int idUsuario { get; set; }
-        public string usuario { get; set; }
-        public string contrasenia { get; set; }
-        public string vigente { get; set; }
+        public string token { get; set; }
         public string nombre { get; set; }
         public string correo { get; set; }
+        public string usuario { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using GestorArchivos.Authentication;
+using GestorArchivos.Context;
 using GestorArchivos.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,58 +20,88 @@ namespace GestorArchivos.Controllers
 
         private readonly ILogger<UsuarioController> _logger;
         private readonly IJwtAuthenticationService _authService;
-
-        public UsuarioController(ILogger<UsuarioController> logger, IJwtAuthenticationService authService)
+        public readonly AppDbContext context;
+        public UsuarioController(ILogger<UsuarioController> logger, IJwtAuthenticationService authService, AppDbContext context)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _authService = authService;
+            this.context = context;
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody] Usuario user)
+        public IActionResult Authenticate([FromBody] AuthModel user)
         {
-            var token = _authService.Authenticate(user.usuario, user.contrasenia);
-
-            if (token == null)
+            ResponseAuth respuesta = _authService.Authenticate(user.usuario, user.contrasenia, context);
+            if (respuesta == null)
             {
                 return Unauthorized();
             }
 
-            return Ok(token);
-        }
-
-        // GET: api/<UsuarioController>
-        [HttpGet]
-        [AllowAnonymous]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+            return Ok(respuesta);
         }
 
         // GET api/<UsuarioController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            Usuario user = new Usuario();
+            user = context.usuario.Find(id);
+            return Ok(user);
         }
 
-        // POST api/<UsuarioController>
+        // POST api/bloquear
+        [Route("bloquear")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromForm] int idUsuario)
         {
+            Usuario user = new Usuario();
+            user = context.usuario.Find(idUsuario);
+            user.vigente = "N";
+
+            context.usuario.Update(user);
+            context.SaveChanges();
+            return Ok("Usuario bloqueado!");
+
         }
 
-        // PUT api/<UsuarioController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+
+        // POST api/registrar
+        [Route("registrar")]
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult RegistrarUsuario([FromBody] Usuario nuevoUsuario)
         {
+            ResponseMessages resp = new ResponseMessages();
+            var usuario = context.usuario.FirstOrDefault(usr => usr.usuario == nuevoUsuario.usuario);
+            if (usuario != null)
+            {
+                resp.codigo = "error";
+                resp.mensaje = "Este usuario ya se encuentra registrado en la base de datos.";
+            }
+            else {
+
+                context.usuario.Add(nuevoUsuario);
+                context.SaveChanges();
+                resp.codigo = "correcto";
+                resp.mensaje = "Usuario registrado con éxito!";
+            }
+
+            return Ok(resp);
+
         }
 
-        // DELETE api/<UsuarioController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+
+        // POST api/registrar
+        [Route("modificar")]
+        [HttpPost]
+        public IActionResult ModificarUsuario([FromBody] Usuario usuarioModificado)
         {
+            context.usuario.Update(usuarioModificado);
+            context.SaveChanges();
+            return Ok("Usuario Modificado!");
+
         }
+
     }
 }
