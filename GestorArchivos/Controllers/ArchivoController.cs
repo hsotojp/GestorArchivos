@@ -1,5 +1,6 @@
 ﻿using GestorArchivos.Context;
 using GestorArchivos.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace GestorArchivos.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ArchivoController : ControllerBase
@@ -44,7 +46,7 @@ namespace GestorArchivos.Controllers
                 foreach (var file in files) 
                 {
                     //RUTA donde se almacenarán los documentos:
-                    var filePath = "C:\\Users\\msotoj\\Source\\repos\\GestorArchivos\\GestorArchivos\\Archivos\\" + file.FileName;
+                    var filePath = "C:\\Users\\msotoj\\Source\\repos\\GestorArchivos\\GestorArchivos\\Archivos\\"+idUsuario+"\\" + file.FileName;
                     using (var stream = System.IO.File.Create(filePath)) {
                         file.CopyToAsync(stream);
                     }

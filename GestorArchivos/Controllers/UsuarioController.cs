@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GestorArchivos.Authentication;
+using GestorArchivos.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +12,38 @@ using System.Threading.Tasks;
 
 namespace GestorArchivos.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+
+        private readonly ILogger<UsuarioController> _logger;
+        private readonly IJwtAuthenticationService _authService;
+
+        public UsuarioController(ILogger<UsuarioController> logger, IJwtAuthenticationService authService)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _authService = authService;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] Usuario user)
+        {
+            var token = _authService.Authenticate(user.usuario, user.contrasenia);
+
+            if (token == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(token);
+        }
+
         // GET: api/<UsuarioController>
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
