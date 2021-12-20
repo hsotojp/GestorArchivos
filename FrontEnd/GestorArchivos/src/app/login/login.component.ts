@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit{
             usuarioAuth.isAuthenticated = true;
             this.config.setUsuario(usuarioAuth);
 
+            this.router.navigate(['main']);
+
         }
     });
 
