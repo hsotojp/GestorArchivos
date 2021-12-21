@@ -1,102 +1,102 @@
 @use postcss-preset-env {
-    stage: 0;
-  }  
-  /* ---------- ALIGN ---------- */
-  .align {
-    display: grid;
-    place-items: center;
-    margin: 0 auto;
-  }
-  
-  /* ---------- BUTTON ---------- */
-  
-  .button {
-    background-color: #033d78;
-    color: #fff;
-    padding: 0.25em 1.5em;
-    border-radius: 10%;
-    text-decoration: none;
-  }
+  stage: 0;
+}  
+/* ---------- ALIGN ---------- */
+.align {
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
+}
 
-  button{
-    margin-left: 40%;
-  }
+/* ---------- BUTTON ---------- */
 
-  a{
-    margin-left: 32%;
-  }
-  
-  .button:focus,
-  .button:hover {
-    background-color: #2887ad;
-  }
-  
-  /* ---------- ICONS ---------- */
-  .icons {
-    display: none;
-  }
-  
-  .icon {
-    fill: currentcolor;
-    display: inline-block;
-    height: 1em;
-    width: 1em;
-  }
-  
-  /* ---------- LOGIN ---------- */
-  .login {
-    width: 400px;
-    height: 400px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -200px 0 0 -200px;
-  }
-  
-  .login__header {
-    background-color: #033d78;
-    border-top-left-radius: 1.25em;
-    border-top-right-radius: 1.25em;
-    color: #fff;
-    padding: 1.25em 1.625em;
-  }
-  
-  .login__header :first-child {
-    margin-top: 0;
-  }
-  
-  .login__header :last-child {
-    margin-bottom: 0;
-  }
-  
-  .login h2 .icon {
-    margin-right: 14px;
-  }
-  
-  .login__form {
-    background-color: #fff;
-    border-bottom-left-radius: 1.25em;
-    border-bottom-right-radius: 1.25em;
-    color: #777;
-    display: grid;
-    gap: 0.875em;
-    padding: 1.25em 1.625em;
-  }
-  
-  .login input {
-    border-radius: 0.1875em;
-  }
-  
-  .login input[type="usuario"],
-  .login input[type="password"] {
-    background-color: #eee;
-    color: #777;
-    padding: 0.25em 0.625em;
-    width: 100%;
-  }
-  
-  .login input[type="submit"] {
-    display: block;
-    margin: 0 auto;
-    border-radius: 30%;
-  }
+.button {
+  background-color: #033d78;
+  color: #fff;
+  padding: 0.25em 1.5em;
+  border-radius: 10%;
+  text-decoration: none;
+}
+
+button{
+  margin-left: 40%;
+}
+
+a{
+  margin-left: 35%;
+}
+
+.button:focus,
+.button:hover {
+  background-color: #2887ad;
+}
+
+/* ---------- ICONS ---------- */
+.icons {
+  display: none;
+}
+
+.icon {
+  fill: currentcolor;
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+}
+
+/* ---------- LOGIN ---------- */
+.login {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -200px 0 0 -200px;
+}
+
+.login__header {
+  background-color: #033d78;
+  border-top-left-radius: 1.25em;
+  border-top-right-radius: 1.25em;
+  color: #fff;
+  padding: 1.25em 1.625em;
+}
+
+.login__header :first-child {
+  margin-top: 0;
+}
+
+.login__header :last-child {
+  margin-bottom: 0;
+}
+
+.login h2 .icon {
+  margin-right: 14px;
+}
+
+.login__form {
+  background-color: #fff;
+  border-bottom-left-radius: 1.25em;
+  border-bottom-right-radius: 1.25em;
+  color: #777;
+  display: grid;
+  gap: 0.875em;
+  padding: 1.25em 1.625em;
+}
+
+.login input {
+  border-radius: 0.1875em;
+}
+
+.login input[type="usuario"],
+.login input[type="password"] {
+  background-color: #eee;
+  color: #777;
+  padding: 0.25em 0.625em;
+  width: 100%;
+}
+
+.login input[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  border-radius: 30%;
+}

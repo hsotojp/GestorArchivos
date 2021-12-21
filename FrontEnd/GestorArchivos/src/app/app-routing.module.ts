@@ -4,12 +4,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './registro/register.component';
+import { UsuarioComponent } from './usuarios/usuarios.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
   { path: "login", component: LoginComponent, pathMatch: "full" },
   { path: "registrar", component: RegisterComponent, pathMatch: "full" },
   { path: "main", component: MainComponent, pathMatch: "full" },
+  { path: "usuario", component: UsuarioComponent, pathMatch: "full" },
 ];
 
 @NgModule({

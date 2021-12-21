@@ -38,7 +38,14 @@ export class LoginComponent implements OnInit{
             usuarioAuth.isAuthenticated = true;
             this.config.setUsuario(usuarioAuth);
 
-            this.router.navigate(['main']);
+            this.adminService.usuarioAutenticado(usuarioAuth.usuario, token).subscribe(response => {
+              localStorage.setItem('user', response.usuario);
+              localStorage.setItem('name', response.nombre);
+              localStorage.setItem('mail', response.correo);
+              localStorage.setItem('idU', response.idUsuario+"");
+              localStorage.setItem('contra', response.contrasenia+"");
+              this.router.navigate(['main']);
+            });
 
         }
     });

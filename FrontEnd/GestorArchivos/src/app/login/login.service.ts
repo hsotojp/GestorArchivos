@@ -4,6 +4,7 @@ import { map, tap, catchError } from "rxjs/operators";
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AuthModel, ResponseAuth} from './login.models';
 import { Observable } from 'rxjs';
+import { Usuario } from '../registro/register.models';
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +27,21 @@ import { Observable } from 'rxjs';
             return new Observable<ResponseAuth>();
         }
 
+    }
+
+    public usuarioAutenticado(idUsuario: string, token : string){
+        try{
+            const headers = new HttpHeaders({
+                'Authorization':'bearer '+token
+            });
+            return this.http.get(this.urlBackend+'/usuario/'+idUsuario, {headers}).pipe(map(response =>{
+                return plainToClass(Usuario, response as Usuario);
+            }));
+        }catch(error){
+            console.log("Error en el LoginService - usuarioAutenticado. "+ error);
+            return new Observable<Usuario>();
+
+        }
     }
 
   }

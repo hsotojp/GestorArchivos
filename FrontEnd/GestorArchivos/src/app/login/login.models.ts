@@ -4,7 +4,7 @@ export class AuthModel {
 }
 
 export class ResponseAuth{
-    public idUsuario: number | undefined;
+    public idUsuario: number;
     public token: string ;
 
     constructor(){

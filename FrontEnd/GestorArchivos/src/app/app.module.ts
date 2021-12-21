@@ -8,9 +8,11 @@ import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { RegisterComponent } from './registro/register.component';
+import { MainComponent } from './main/main.component';
+import { UsuarioComponent } from './usuarios/usuarios.component';
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent
+    AppComponent, LoginComponent, RegisterComponent, UsuarioComponent,MainComponent
   ],
   imports: [
     BrowserModule,

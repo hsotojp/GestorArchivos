@@ -84,7 +84,7 @@ namespace GestorArchivos.Controllers
                 context.usuario.Add(nuevoUsuario);
                 context.SaveChanges();
                 resp.codigo = "correcto";
-                resp.mensaje = "Usuario registrado con éxito!";
+                resp.mensaje = "Este usuario ya se encuentra registrado en la base de datos.";
             }
 
             return Ok(resp);
@@ -99,7 +99,10 @@ namespace GestorArchivos.Controllers
         {
             context.usuario.Update(usuarioModificado);
             context.SaveChanges();
-            return Ok("Usuario Modificado!");
+            ResponseMessages resp = new ResponseMessages();
+            resp.codigo = "correcto";
+            resp.mensaje = "Usuario correctamente actualizado.";
+            return Ok(resp);
 
         }
 

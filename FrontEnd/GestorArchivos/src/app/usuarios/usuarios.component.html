@@ -1,0 +1,41 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand">Gestor de Archivos</a>
+      <div class="d-flex">
+        <a class="btn btn-outline-primary" href="http://localhost:4200/main">Mis Archivos</a>
+        <a class="btn btn-outline-secondary" (click)="logout()" style="margin-left: 10px;">Logout</a>
+      </div>
+    </div>
+  </nav>
+  
+  
+  
+  <div class="login">
+    <h2>Actualización de Usuario</h2>
+  
+    <form action="#" class="login__form" method="POST">
+      
+      <div>
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" [(ngModel)]="nombreUsuario" name="usuario"  required="required" value="{{nombreUsuario}}" disabled>
+      </div>
+      <div>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre"  required="required"  value="{{nombre}}">
+      </div>
+      <div>
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" [(ngModel)]="correo" name="correo"  required="required" value="{{correo}}">
+      </div>
+      <div>
+        <label for="contrasenia">Contraseña</label>
+        <input type="password" id="contrasenia" [(ngModel)]="contrasenia" required="required" name="password" value="{{contrasenia}}">
+      </div>
+  
+      <div>
+        <button class="button" type="submit" (click)="actualizar()">Actualizar</button>
+      </div>
+  
+    </form>
+  
+  </div>
